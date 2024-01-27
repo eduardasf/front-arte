@@ -1,20 +1,23 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from './pages/Home';  // Corrigido
-import Inserir from './pages/Inserir';  // Corrigido
-import Listar from './pages/Listar';  // Corrigido
-import NavBar from './Components/NavBar';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
+import Inserir from './pages/Inserir';
+import Listar from './pages/Listar';
+import NavBar from './Components/layout/NavBar';
+import Container from "./Components/layout/Container";
 
 function App() {
   return (
-   <Router>
-    <NavBar/>
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route exact path="/inserir" element={<Inserir />} />
-      <Route exact path="/listar" element={<Listar />} />
-    </Routes>
-   </Router>
-  )
+    <Router>
+      <NavBar />
+      <Container customClass = "min-height">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/inserir" element={<Inserir />} />
+          <Route path="/listar" element={<Listar />} />
+        </Routes>
+      </Container>
+    </Router>
+  );
 }
 
 export default App;
