@@ -1,8 +1,11 @@
+import ArteList from "../Components/ListArt"
+import style from './Listar.module.css'
+
 function Listar(){
     return(
-        <div>
-            <h1>Listar</h1>
-            <p>Conteúdo da página</p>
+        <div className = {style.listar_container}>
+            <h1>Veja a lista de Artes</h1>
+            <ArteList/>
         </div>
     )
 }

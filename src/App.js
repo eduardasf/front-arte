@@ -4,6 +4,7 @@ import Inserir from './pages/Inserir';
 import Listar from './pages/Listar';
 import NavBar from './Components/layout/NavBar';
 import Container from "./Components/layout/Container";
+import Footer from "./Components/layout/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/listar" element={<Listar />} />
         </Routes>
       </Container>
+      <Footer/>
     </Router>
   );
 }

@@ -7,9 +7,11 @@
 .inserir_container h1{
     margin-bottom: 0.5em;
     text-align: center;
+    color: #6F96A6;
 }
 
 .inserir_container p{
     color: #7b7b7b;
     text-align: center;
 }
+

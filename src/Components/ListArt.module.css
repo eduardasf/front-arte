@@ -1,0 +1,50 @@
+/* Estilo para o contêiner da tabela (centralizado) */
+.table_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 175px;
+    padding-bottom: 30px;
+    /*padding-right: 150px;*/ /* Ocupa 100% da altura da viewport */
+}
+
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Estilo para as células de cabeçalho da tabela */
+th {
+    background-color: #6F96A6;
+    border: 1px solid #dddddd;
+    color: #FFF;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Estilo para as células de dados da tabela */
+td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+
+/* Estilo para as linhas pares da tabela */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilo para os botões de ação */
+button {
+    background-color: #6F96A6; /* Cor de fundo verde */
+    color: white; /* Cor do texto branca */
+    padding: 6px 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #93b9c8; /* Cor de fundo verde mais escura ao passar o mouse */
+}

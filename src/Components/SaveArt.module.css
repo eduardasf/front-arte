@@ -20,7 +20,7 @@ label {
 
 input {
   padding: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 2px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 100%;
@@ -41,6 +41,8 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 15px;
+  text-align: center;
 }
 
 .saveButton,
@@ -55,4 +57,8 @@ button {
 .saveButton:hover,
 .backButton:hover {
   color: #565d74;
+}
+
+.msg {
+  padding-top: 10px;
 }

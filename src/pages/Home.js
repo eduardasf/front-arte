@@ -1,6 +1,5 @@
 import styles from './Home.module.css'
 import imagem from '../img/img-home.jpg'
-import { Link } from 'react-router-dom'
 import LinkButton from '../Components/layout/LinkButton'
 
 function Home(){
