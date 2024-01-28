@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ListArt.module.css';
+import EditArt from './EditArt';
 
 const ArteList = () => {
   const [artes, setArtes] = useState([]);
+
+  const [artToEdit, setArtToEdit] = useState(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,9 +31,14 @@ const ArteList = () => {
     fetchData();
   }, []);
 
-  const handleEditar = (id) => {
-    // Implemente a lógica de edição aqui
-    console.log(`Editar item com ID ${id}`);
+  const handleEditar = (arte) => {
+    setArtToEdit(arte);
+  };
+
+  
+
+  const handleFinishEditar = () => {
+    setArtToEdit(undefined);
   };
 
   const handleDeletar = async (id) => {
@@ -57,7 +65,9 @@ const ArteList = () => {
 
   return (
     <div className={styles.table_container}>
-      <table>
+      <h1>{artToEdit ? 'Editar arte' : 'Veja a lista de artes'}</h1><br/>
+      {!artToEdit && 
+        <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -77,13 +87,17 @@ const ArteList = () => {
               <td>{arte.ano_Quadro}</td>
               <td>{arte.valor}</td>
               <td>
-                <button onClick={() => handleEditar(arte.id)}>Editar</button>
+                <button onClick={() => handleEditar(arte)}>Editar</button>
                 <button onClick={() => handleDeletar(arte.id)}>Deletar</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> 
+}
+      {artToEdit && 
+        <EditArt art={artToEdit} handleFinishEditar={handleFinishEditar}/>
+}  
     </div>
   );
 };
