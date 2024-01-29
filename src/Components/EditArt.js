@@ -1,49 +1,61 @@
 import React, { useState } from "react";
-import style from './SaveArt.module.css'
+import style from './EditArt.module.css';
 
 function EditArt(props) {
+  const [art, setArt] = useState(props.art);
+  const [mensagem, setMensagem] = useState("");
 
-    const [art, setArt] = useState(props.art);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setArt({
+      ...art,
+      [name]: value,
+    });
+  };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://localhost:7288/api/Arte?id=' + art.id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(art),
+      });
+
+      if (response.ok) {
+        setMensagem('Edição realizada com sucesso!');
+        // Limpar os campos do formulário
         setArt({
-            ...art,
-            [name]: value,
+          nome_Quadro: "",
+          nome_Pintor: "",
+          ano_Quadro: "",
+          valor: "",
         });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log("handleSubmit",art);
-
-        try {
-            const response = await fetch('https://localhost:7288/api/Arte?id='+art.id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(art),
-            });
-
-            if (response.ok) {
-            //todo voltar para a pag de listar e atualizar os dados
-            } else {
-                console.error('Erro ao adicionar arte:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Erro na requisição:', error.message);
-            
+        
+        // Chamar a função de atualização de dados passada como propriedade
+        if (props.atualizarDados) {
+          props.atualizarDados();
         }
-    };
+
+        // todo: Navegar de volta para a página de listagem ou atualizar os dados
+      } else {
+        console.error('Erro ao editar arte:', response.statusText);
+        setMensagem('Erro ao editar arte. Por favor, tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error.message);
+      setMensagem('Erro na requisição. Por favor, tente novamente.');
+    }
+  };
 
   const handleVoltar = () => {
     props.handleFinishEditar();
   };
 
-
   return (
-    <div>
+    <div className={style.form_control}>
       <form onSubmit={handleSubmit}>
         <label>
           *Nome do Quadro:
@@ -100,9 +112,10 @@ function EditArt(props) {
           >
             Salvar Edição
           </button>
-          <button onClick={handleVoltar}>Voltar</button>
+          <button onClick={handleVoltar} className={style.backButton}>Voltar</button>
         </div>
       </form>
+      {mensagem && <p className={style.mensagem}>{mensagem}</p>}
     </div>
   );
 }

@@ -4,30 +4,29 @@ import EditArt from './EditArt';
 
 const ArteList = () => {
   const [artes, setArtes] = useState([]);
-
   const [artToEdit, setArtToEdit] = useState(undefined);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://localhost:7288/api/Arte', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://localhost:7288/api/Arte', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          setArtes(data);
-        } else {
-          console.error('Erro ao obter dados da API:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Erro na requisição:', error.message);
+      if (response.ok) {
+        const data = await response.json();
+        setArtes(data);
+      } else {
+        console.error('Erro ao obter dados da API:', response.statusText);
       }
-    };
+    } catch (error) {
+      console.error('Erro na requisição:', error.message);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -35,10 +34,10 @@ const ArteList = () => {
     setArtToEdit(arte);
   };
 
-  
-
   const handleFinishEditar = () => {
     setArtToEdit(undefined);
+    // Atualizar a lista de artes após a edição bem-sucedida
+    fetchData();
   };
 
   const handleDeletar = async (id) => {
@@ -65,39 +64,38 @@ const ArteList = () => {
 
   return (
     <div className={styles.table_container}>
-      <h1>{artToEdit ? 'Editar arte' : 'Veja a lista de artes'}</h1><br/>
-      {!artToEdit && 
+      {!artToEdit && (
         <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome do Quadro</th>
-            <th>Nome do Pintor</th>
-            <th>Ano do Quadro</th>
-            <th>Valor</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {artes.map((arte) => (
-            <tr key={arte.id}>
-              <td>{arte.id}</td>
-              <td>{arte.nome_Quadro}</td>
-              <td>{arte.nome_Pintor}</td>
-              <td>{arte.ano_Quadro}</td>
-              <td>{arte.valor}</td>
-              <td>
-                <button onClick={() => handleEditar(arte)}>Editar</button>
-                <button onClick={() => handleDeletar(arte.id)}>Deletar</button>
-              </td>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome do Quadro</th>
+              <th>Nome do Pintor</th>
+              <th>Ano do Quadro</th>
+              <th>Valor</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table> 
-}
-      {artToEdit && 
-        <EditArt art={artToEdit} handleFinishEditar={handleFinishEditar}/>
-}  
+          </thead>
+          <tbody>
+            {artes.map((arte) => (
+              <tr key={arte.id}>
+                <td>{arte.id}</td>
+                <td>{arte.nome_Quadro}</td>
+                <td>{arte.nome_Pintor}</td>
+                <td>{arte.ano_Quadro}</td>
+                <td>{arte.valor}</td>
+                <td>
+                  <button onClick={() => handleEditar(arte)}>Editar</button>
+                  <button onClick={() => handleDeletar(arte.id)}>Deletar</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {artToEdit && (
+        <EditArt art={artToEdit} handleFinishEditar={handleFinishEditar} atualizarDados={fetchData} />
+      )}
     </div>
   );
 };

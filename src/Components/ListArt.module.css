@@ -1,11 +1,10 @@
 /* Estilo para o contêiner da tabela (centralizado) */
 .table_container {
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 175px;
     padding-bottom: 30px;
-    /*padding-right: 150px;*/ /* Ocupa 100% da altura da viewport */
+    display: flex;
+    
 }
 
 /* Estilo para a tabela */
